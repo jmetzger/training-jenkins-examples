@@ -24,6 +24,8 @@ pipeline {
 
 ## Example 2: Multiple lines sh 
 
+  * Question: Is file still available in next stage ?
+
 ```
 
 pipeline {
@@ -52,6 +54,46 @@ pipeline {
 }
 
 
+```
+
+## Example 2: Multiple lines sh 
+
+  * Question: Is file still available in next stage ?
+
+```
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+                echo 'good good'
+                sh '''
+                  pwd
+                  ls -la
+                  ls -la > test.txt
+                '''
+                
+            }
+        }
+        
+        stage('Checker') {
+            steps {
+              sh 'ls -la'
+            }
+        }
+        
+        stage('Archiver') {
+            steps {
+              archiveArtifacts artifacts: 'test.txt', followSymlinks: false
+            }
+        }
+        
+    }
+}
 
 
 ```
+
