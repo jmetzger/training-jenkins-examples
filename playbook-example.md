@@ -1,0 +1,18 @@
+# playbook example md 
+
+```
+---
+  - name: Playbook
+    hosts: webservers
+    become: yes
+    become_user: root
+    tasks:
+      - name: ensure apache is at the latest version
+        yum:
+          name: httpd
+          state: latest
+      - name: ensure apache is running
+        service:
+          name: httpd
+          state: started
+```
